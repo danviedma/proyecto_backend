@@ -2,13 +2,18 @@
 
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import Footer from '@/app/components/Footer';
 
 function EditProject({ params }) {
     const { id } = params; 
+    const [errors, setErrors] = useState({});
+
     const [project, setProject] = useState({
         title: '',
         description: '',
-        technologies: ''
+        technologies: '',
+        year: '',
+        repositoryUrl: ''
     });
 
     useEffect(() => {
@@ -22,7 +27,9 @@ function EditProject({ params }) {
                         setProject({
                             title: foundProject.title,
                             description: foundProject.description,
-                            technologies: foundProject.technologies
+                            technologies: foundProject.technologies,
+                            year: foundProject.year,
+                            repositoryUrl: foundProject.repositoryUrl
                         });
                     }
                 })
@@ -35,25 +42,40 @@ function EditProject({ params }) {
             title: project.title,
             description: project.description,
             technologies: project.technologies,
+            year: project.year,
+            repositoryUrl: project.repositoryUrl
         };
-        console.log("Proyecto a actualizar:", projectUpdate);
+    
         axios.put(`http://localhost:5050/api/projects/${id}`, projectUpdate)
             .then(res => {
                 console.log(res.data);
                 alert('Proyecto actualizado con éxito!');
-                // Redirección después de actualizar el proyecto
+                //agregar lógica adicional, como redireccionar al usuario
             })
-            .catch(err => console.error(err));
+            .catch(err => {
+                if (err.response && err.response.status === 400) {
+                    
+                    const formErrors = err.response.data.errores.reduce((acc, error) => {
+                        acc[error.path] = error.msg; 
+                        return acc;
+                    }, {});
+                    setErrors(formErrors);
+                } else {
+                    
+                    console.error(err);
+                }
+            });
     }
-
+    
+    
     const handleChange = (e) => {
         setProject({...project, [e.target.name]: e.target.value});
     }
 
     return (
-        <div className="flex flex-col bg-customGreenStart h-screen items-center pt-24">
+        <div className="flex flex-col bg-customGreenStart items-center pt-10 h-screen">
             <div className="row">
-            <h2 className="text-3xl mt-4 mb-6 text-white"> Editar Proyecto </h2>
+            <h2 className="text-3xl mb-4 text-white"> Editar Proyecto </h2>
             </div>
             <div className="row">
                 
@@ -67,6 +89,8 @@ function EditProject({ params }) {
                             value={project.title}
                             onChange={handleChange}
                         />
+                        {errors.title && <p className="text-white italic text-sm">{errors.title}</p>}
+                       
                     </div>
 
                     <div className="mb-6 flex flex-col">
@@ -78,6 +102,7 @@ function EditProject({ params }) {
                             value={project.description}
                             onChange={handleChange}
                         />
+                        {errors.description && <p className="text-white">{errors.description}</p>}
                     </div>
 
                     <div className="mb-6 flex flex-col">
@@ -90,6 +115,31 @@ function EditProject({ params }) {
                             value={project.technologies}
                             onChange={handleChange}
                         />
+                        {errors.technologies && <p className="text-white">{errors.technologies}</p>}
+                    </div>
+                    <div className="mb-6 flex flex-col">
+                        <label className="text-white" htmlFor="year">Año Proyecto</label>
+                        <input
+                            type="text"
+                            className="w-400 h-10"
+                            id="year"
+                            name="year"
+                            value={project.year}
+                            onChange={handleChange}
+                        />
+                        {errors.year && <p className="text-white">{errors.year}</p>}
+                    </div>
+                    <div className="mb-6 flex flex-col">
+                        <label className="text-white" htmlFor="technologies">Git Repository</label>
+                        <input
+                            type="text"
+                            className="w-400 h-10"
+                            id="repositoryUrl"
+                            name="repositoryUrl"
+                            value={project.repositoryUrl}
+                            onChange={handleChange}
+                        />
+                        {errors.repositoryUrl && <p className="text-white italic">{errors.repositoryUrl}</p>}
                     </div>
 
                     <button onClick={editProject} className="mb-3 w-400 mr-4 bg-blue-400 p-3 text-center rounded  text-white">Actualizar Proyecto</button>

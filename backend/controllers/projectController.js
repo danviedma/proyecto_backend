@@ -12,12 +12,14 @@ getAllProjects = async (req, res) => {
 
 createProject = async (req, res) => {
     try{
-        const { title, description, technologies, imageUrl } = req.body;
+        const { title, description, technologies, imageUrl, year, repositoryUrl } = req.body;
         let newProject = await Project.create({
             title,
             description,
             technologies,
-            imageUrl
+            imageUrl,
+            year,
+            repositoryUrl
         });
         res.status(201).json({
             status: "success",
@@ -32,13 +34,14 @@ createProject = async (req, res) => {
 updateProject = async (req, res) => {
     try {
         const { id} = req.params;
-        const { title, description, technologies, imageUrl } = req.body;
-        const project = await Project.findByIdAndUpdate(id, { title, description, technologies, imageUrl }, { new: true });
+        const { title, description, technologies, imageUrl, year, repositoryUrl } = req.body;
+        const project = await Project.findByIdAndUpdate(id, { title, description, technologies, imageUrl, year, repositoryUrl }, { new: true });
         if (!project) {
           return res.status(404).send('Proyecto no encontrado');
         }
         res.send(project);
       } catch (error) {
+        console.error(error); // Para depuración en el servidor
         res.status(500).send(error);
       }
 };

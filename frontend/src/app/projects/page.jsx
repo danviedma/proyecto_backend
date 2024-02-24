@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Link from "next/link";
 import Navbar from "../components/Navbar";
+import Footer from '../components/Footer';
 
 function ProjectsPage() {
   const [data, setData] = useState([]);
@@ -19,7 +20,7 @@ function ProjectsPage() {
       console.log(response.data);
     } catch (error) {
       console.error("Error fetching projects:", error);
-      // Handle error appropriately, e.g., show a message to the user
+      
     }
   };
 
@@ -27,11 +28,10 @@ function ProjectsPage() {
     try {
       await axios.delete(`http://localhost:5050/api/projects/${id}`);
       alert('Proyecto borrado');
-      //navigate(0); // or use a better way to refresh the list
       setData(data.filter(item => item._id !== id));
     } catch (error) {
       console.error("Error deleting project:", error);
-      // Handle error appropriately
+      
     }
   };
 
@@ -44,7 +44,7 @@ function ProjectsPage() {
       </div>
       <div className="flex flex-wrap justify-center items-center">
         {data.map((item) => (
-     <div className="card inline-block m-8 h-450 w-400 overflow-hidden rounded bg-cream hover:shadow-lg flex flex-col" key={item._id}>
+     <div className="card m-8 h-500 w-400 overflow-hidden rounded bg-cream hover:shadow-lg flex flex-col" key={item._id}>
      <img 
        src={item.imageUrl || '/nophoto.png'}
        alt={item.title || 'Noticia'} 
@@ -54,6 +54,8 @@ function ProjectsPage() {
        <p>Nombre: {item.title}</p>
        <p>Descripcion: {item.description}</p>
        <p>Tecnologias: {item.technologies}</p>
+       <p>Año: {item.year}</p>
+      <p>Repositorio: {item.repositoryUrl}</p>
      </div>
      <div className='p-4'>
        <div className='flex justify-center'>
@@ -67,6 +69,7 @@ function ProjectsPage() {
      </div>
    </div>
         ))}
+        <Footer />
       </div>
     </div>
   );
