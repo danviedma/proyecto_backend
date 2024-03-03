@@ -6,6 +6,7 @@ import Navbar from "../components/Navbar";
 import Footer from '../components/Footer';
 
 function ProjectsPage() {
+  
   const [data, setData] = useState([]);
   //const navigate = useNavigate();
 
@@ -15,7 +16,8 @@ function ProjectsPage() {
 
   const getProjects = async () => {
     try {
-      const response = await axios.get("http://localhost:5050/api/projects/");
+     // const response = await axios.get("http://localhost:5050/api/projects/");
+     const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/projects/`);
       setData(response.data);
       console.log(response.data);
     } catch (error) {
@@ -26,7 +28,8 @@ function ProjectsPage() {
 
   const deleteProject = async (id) => {
     try {
-      await axios.delete(`http://localhost:5050/api/projects/${id}`);
+      //await axios.delete(`http://localhost:5050/api/projects/${id}`);
+      await axios.delete(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/projects/${id}`);
       alert('Proyecto borrado');
       setData(data.filter(item => item._id !== id));
     } catch (error) {
@@ -40,7 +43,7 @@ function ProjectsPage() {
       <Navbar />
       <div className='flex justify-between'>
         <h2 className="text-white text-3xl ml-40 animate-rotate-x animate-twice animate-duration-[6000ms]"> Proyectos realizados </h2>
-        <Link className= "self-end text-white mr-32" href="/addproject">Agregar Proyecto</Link>
+        <Link className= "self-end text-white mr-32 hover:text-blue-500" href="/addproject">Agregar Proyecto</Link>
       </div>
       <div className="flex flex-wrap justify-center items-center">
         {data.map((item) => (
@@ -51,11 +54,11 @@ function ProjectsPage() {
        className="h-44 object-cover rounded w-full" 
      />
      <div className="p-4 flex-grow">
-       <p>Nombre: {item.title}</p>
-       <p>Descripcion: {item.description}</p>
-       <p>Tecnologias: {item.technologies}</p>
-       <p>Año: {item.year}</p>
-      <p>Repositorio: {item.repositoryUrl}</p>
+       <p className="mb-1"><span className="font-bold">Nombre:</span> {item.title}</p>
+       <p className="mb-1"><span className="font-bold">Descripcion:</span> {item.description}</p>
+       <p className="mb-1"><span className="font-bold">Tecnologias:</span> {item.technologies}</p>
+       <p className="mb-1"><span className="font-bold">Año:</span> {item.year}</p>
+       <p className="font-bold">GitHub repo: <a href="{item.repositoryUrl}" className="text-blue-700">{item.repositoryUrl}</a></p>
      </div>
      <div className='p-4'>
        <div className='flex justify-center'>

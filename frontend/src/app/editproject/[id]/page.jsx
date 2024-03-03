@@ -18,7 +18,8 @@ function EditProject({ params }) {
 
     useEffect(() => {
         if (id) {
-            axios.get(`http://localhost:5050/api/projects`)
+            //axios.get(`http://localhost:5050/api/projects`)
+            axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/projects`)
                 .then(res => {
                     console.log("Proyectos:", res.data);
                     const foundProject = res.data.find(p => p._id === id);
@@ -46,11 +47,12 @@ function EditProject({ params }) {
             repositoryUrl: project.repositoryUrl
         };
     
-        axios.put(`http://localhost:5050/api/projects/${id}`, projectUpdate)
+        //axios.put(`http://localhost:5050/api/projects/${id}`, projectUpdate)
+        axios.put(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/projects/${id}`, projectUpdate)
             .then(res => {
                 console.log(res.data);
                 alert('Proyecto actualizado con éxito!');
-                //agregar lógica adicional, como redireccionar al usuario
+                window.location.href = "/projects";
             })
             .catch(err => {
                 if (err.response && err.response.status === 400) {
@@ -73,7 +75,7 @@ function EditProject({ params }) {
     }
 
     return (
-        <div className="flex flex-col bg-customGreenStart items-center pt-10 h-screen">
+        <div className="flex flex-col bg-customGreenStart items-center pt-10 h-full">
             <div className="row">
             <h2 className="text-3xl mb-4 text-white"> Editar Proyecto </h2>
             </div>
@@ -102,7 +104,7 @@ function EditProject({ params }) {
                             value={project.description}
                             onChange={handleChange}
                         />
-                        {errors.description && <p className="text-white">{errors.description}</p>}
+                        {errors.description && <p className="text-white italic">{errors.description}</p>}
                     </div>
 
                     <div className="mb-6 flex flex-col">
@@ -115,7 +117,7 @@ function EditProject({ params }) {
                             value={project.technologies}
                             onChange={handleChange}
                         />
-                        {errors.technologies && <p className="text-white">{errors.technologies}</p>}
+                        {errors.technologies && <p className="text-white italic">{errors.technologies}</p>}
                     </div>
                     <div className="mb-6 flex flex-col">
                         <label className="text-white" htmlFor="year">Año Proyecto</label>
@@ -127,7 +129,7 @@ function EditProject({ params }) {
                             value={project.year}
                             onChange={handleChange}
                         />
-                        {errors.year && <p className="text-white">{errors.year}</p>}
+                        {errors.year && <p className="text-white italic">{errors.year}</p>}
                     </div>
                     <div className="mb-6 flex flex-col">
                         <label className="text-white" htmlFor="technologies">Git Repository</label>

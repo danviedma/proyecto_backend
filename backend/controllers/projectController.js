@@ -40,8 +40,7 @@ updateProject = async (req, res) => {
           return res.status(404).send('Proyecto no encontrado');
         }
         res.send(project);
-      } catch (error) {
-        console.error(error); // Para depuración en el servidor
+      } catch (error) { // Para depuración en el servidor
         res.status(500).send(error);
       }
 };

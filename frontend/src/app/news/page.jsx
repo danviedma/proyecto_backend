@@ -15,7 +15,8 @@ function NewsPage() {
 
   const getNews = async () => {
     try {
-      const response = await axios.get("http://localhost:5050/api/projects/latest-news");
+      //const response = await axios.get("http://localhost:5050/api/projects/latest-news");
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/projects/latest-news`);
       setData(response.data.articles);
     } catch (error) {
       console.error("Error fetching projects:", error);
@@ -30,14 +31,18 @@ function NewsPage() {
         {data.map((item) => (
           <div className="card text-justify inline-block m-8 h-450 w-400 overflow-hidden rounded bg-cream hover:shadow-lg" key={item._id}>
             <div className="row p-4 ">
+             <a href={item.url} target="_blank" >
              <img 
               src={item.urlToImage || '/nophoto.png'}
               alt={item.title || 'Noticia'} 
-              className="inline w-full h-44 object-cover rounded" 
-            />
+              className="inline w-full h-44 object-cover rounded"
+              />
+             </a>
+              
+            
       </div>
       <div className="p-4 mb-6">
-        <p>{item.title}</p>
+        <p className="mb-1">{item.title}</p>
         <p>{item.description}</p>
         <a href={item.url} 
         target="_blank" 

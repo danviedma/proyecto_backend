@@ -7,14 +7,14 @@ const validateForm = [
     body('title').not().isEmpty().withMessage('El título es obligatorio!!'),
     body('description').not().isEmpty().withMessage('La descripción es obligatoria!!'),
     body('technologies').not().isEmpty().withMessage('Las tecnologías son obligatorias!!'),
-    body('imageUrl').not().isEmpty().withMessage('La URL de la imagen es obligatoria!!'),
+    //body('imageUrl').not().isEmpty().withMessage('La URL de la imagen es obligatoria!!'),
     body('year').not().isEmpty().withMessage('El año es obligatorio!!'),
     body('repositoryUrl').not().isEmpty().withMessage('La URL del repositorio es obligatoria!!'),
     (req, res, next) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             // Si hay errores, responde con un estado 400 y los detalles de los errores
-            console.log(errors.array()); // Imprimir para depuración
+             // Imprimir para depuración
             return res.status(400).json({ errores: errors.array() });
         }
         next();
