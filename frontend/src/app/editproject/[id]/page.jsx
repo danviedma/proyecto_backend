@@ -18,8 +18,8 @@ function EditProject({ params }) {
 
     useEffect(() => {
         if (id) {
-            //axios.get(`http://localhost:5050/api/projects`)
-            axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/projects`)
+            axios.get(`http://localhost:5050/api/projects`)
+            //axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/projects`)
                 .then(res => {
                     console.log("Proyectos:", res.data);
                     const foundProject = res.data.find(p => p._id === id);
@@ -47,8 +47,8 @@ function EditProject({ params }) {
             repositoryUrl: project.repositoryUrl
         };
     
-        //axios.put(`http://localhost:5050/api/projects/${id}`, projectUpdate)
-        axios.put(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/projects/${id}`, projectUpdate)
+        axios.put(`http://localhost:5050/api/projects/${id}`, projectUpdate)
+        //axios.put(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/projects/${id}`, projectUpdate)
             .then(res => {
                 console.log(res.data);
                 alert('Proyecto actualizado con éxito!');
