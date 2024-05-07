@@ -28,8 +28,8 @@ function ProjectsPage() {
 
   const deleteProject = async (id) => {
     try {
-      await axios.delete(`http://localhost:5050/api/projects/${id}`);
-      //await axios.delete(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/projects/${id}`);
+      //await axios.delete(`http://localhost:5050/api/projects/${id}`);
+      await axios.delete(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/projects/${id}`);
       alert('Proyecto borrado');
       setData(data.filter(item => item._id !== id));
     } catch (error) {
@@ -38,12 +38,20 @@ function ProjectsPage() {
     }
   };
 
+  const [isDisabled, setIsDisabled] = useState(true);
+
+  // Función para habilitar el botón
+    const enableButton = () => {
+    setIsDisabled(false);
+    };
+
   return (
     <div className="bg-customGreenStart h-full">
       <Navbar />
       <div className='flex justify-between'>
         <h2 className="text-white text-3xl ml-40 animate-rotate-x animate-twice animate-duration-[6000ms]"> Proyectos realizados </h2>
-        <Link className= "self-end text-white mr-32 hover:text-blue-500" href="/addproject">Agregar Proyecto</Link>
+        {/* <Link className= "self-end text-white mr-32 hover:text-blue-500" href="/addproject">Agregar Proyecto</Link> */}
+        <Link className= "self-end text-white mr-32 hover:text-blue-500" href="/addproject">A</Link>
       </div>
       <div className="flex flex-wrap justify-center items-center">
         {data.map((item) => (
@@ -64,10 +72,10 @@ function ProjectsPage() {
        <div className='flex justify-center'>
          {item._id && (
            <Link href={`/editproject/${item._id}`}>
-             <button className="w-20 mr-4 bg-blue-400 p-3 rounded">Editar</button>
+             <button disabled={isDisabled} className="w-20 mr-4 bg-blue-400 p-3 rounded">Editar</button>
            </Link>
          )} 
-         <button className="w-20 bg-blue-400 p-3 rounded" onClick={() => deleteProject(item._id)}>Borrar</button>
+         <button disabled={isDisabled} className="w-20 bg-blue-400 p-3 rounded" onClick={() => deleteProject(item._id)}>Borrar</button>
        </div>
      </div>
    </div>

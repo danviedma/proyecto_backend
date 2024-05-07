@@ -16,16 +16,6 @@
       "static/chunks/main-app.js",
       "static/chunks/app/projects/page.js"
     ],
-    "/addproject/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/addproject/page.js"
-    ],
-    "/editproject/[id]/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/editproject/[id]/page.js"
-    ],
     "/news/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",

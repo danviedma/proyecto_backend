@@ -23,8 +23,8 @@ function AddProject(){
             repositoryUrl: repositoryUrl
         };
     
-        axios.post('http://localhost:5050/api/projects/save', newProject)
-        //axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/projects/save}`, newProject)
+        //axios.post('http://localhost:5050/api/projects/save', newProject)
+        axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/projects/save}`, newProject)
             .then(res => {
                 alert('Proyecto agregado a la DB');
                 window.location.href = "/projects";
