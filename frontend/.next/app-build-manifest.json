@@ -16,15 +16,10 @@
       "static/chunks/main-app.js",
       "static/chunks/app/projects/page.js"
     ],
-    "/news/page": [
+    "/editproject/[id]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/news/page.js"
-    ],
-    "/contact/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/contact/page.js"
+      "static/chunks/app/editproject/[id]/page.js"
     ]
   }
 }

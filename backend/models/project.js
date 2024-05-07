@@ -7,6 +7,7 @@ const projectSchema = new mongoose.Schema({
     },
     description: String,
     technologies: [String],
+    url: String,
     imageUrl: String,
     year: Number,
     repositoryUrl: String

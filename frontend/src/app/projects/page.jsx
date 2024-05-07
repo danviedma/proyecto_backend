@@ -51,11 +51,11 @@ function ProjectsPage() {
       <div className='flex justify-between'>
         <h2 className="text-white text-3xl ml-40 animate-rotate-x animate-twice animate-duration-[6000ms]"> Proyectos realizados </h2>
         {/* <Link className= "self-end text-white mr-32 hover:text-blue-500" href="/addproject">Agregar Proyecto</Link> */}
-        <Link className= "self-end text-white mr-32 hover:text-blue-500" href="/addproject">A</Link>
+        <Link className= "self-end text-white mr-32 hover:text-blue-500" href="/addproject"></Link>
       </div>
       <div className="flex flex-wrap justify-center items-center">
         {data.map((item) => (
-     <div className="card m-8 h-500 w-400 overflow-hidden rounded bg-cream hover:shadow-lg flex flex-col" key={item._id}>
+     <div className="card m-8 h-600 w-400 overflow-hidden rounded bg-cream hover:shadow-lg flex flex-col" key={item._id}>
      <img 
        src={item.imageUrl || '/nophoto.png'}
        alt={item.title || 'Noticia'} 
@@ -65,6 +65,7 @@ function ProjectsPage() {
        <p className="mb-1"><span className="font-bold">Nombre:</span> {item.title}</p>
        <p className="mb-1"><span className="font-bold">Descripcion:</span> {item.description}</p>
        <p className="mb-1"><span className="font-bold">Tecnologias:</span> {item.technologies}</p>
+       <p className="font-bold">Url: <a href={item.url} target='_blanck' className="text-blue-700">{item.url}</a></p>
        <p className="mb-1"><span className="font-bold">Año:</span> {item.year}</p>
        <p className="font-bold">GitHub repo: <a href={item.repositoryUrl} target='_blanck' className="text-blue-700">{item.repositoryUrl}</a></p>
      </div>

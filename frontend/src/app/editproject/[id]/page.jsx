@@ -12,6 +12,7 @@ function EditProject({ params }) {
         title: '',
         description: '',
         technologies: '',
+        url: '',
         year: '',
         repositoryUrl: ''
     });
@@ -29,6 +30,7 @@ function EditProject({ params }) {
                             title: foundProject.title,
                             description: foundProject.description,
                             technologies: foundProject.technologies,
+                            url: foundProject.url,
                             year: foundProject.year,
                             repositoryUrl: foundProject.repositoryUrl
                         });
@@ -43,6 +45,7 @@ function EditProject({ params }) {
             title: project.title,
             description: project.description,
             technologies: project.technologies,
+            url: project.url,
             year: project.year,
             repositoryUrl: project.repositoryUrl
         };
@@ -119,6 +122,20 @@ function EditProject({ params }) {
                         />
                         {errors.technologies && <p className="text-white italic">{errors.technologies}</p>}
                     </div>
+
+                    <div className="mb-6 flex flex-col">
+                        <label className="text-white" htmlFor="technologies">Url</label>
+                        <input
+                            type="text"
+                            className="w-400 h-10"
+                            id="url"
+                            name="url"
+                            value={project.url}
+                            onChange={handleChange}
+                        />
+                        {errors.url && <p className="text-white italic">{errors.url}</p>}
+                    </div>
+
                     <div className="mb-6 flex flex-col">
                         <label className="text-white" htmlFor="year">Año Proyecto</label>
                         <input

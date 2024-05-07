@@ -8,6 +8,7 @@ function AddProject(){
     const [title,setTitle] = useState('');
     const [description,setDescription] = useState('');
     const [technologies,setTechnologies] = useState('');
+    const [url,setUrl] = useState('');
     const [imagen, setImagen]=useState('');
     const [year, setYear]=useState('');
     const [repositoryUrl, setRepositoryUrl]=useState('');
@@ -18,6 +19,7 @@ function AddProject(){
             title: title,
             description: description,
             technologies: technologies,
+            url: url,
             imageUrl: imagen,
             year: year,
             repositoryUrl: repositoryUrl
@@ -69,6 +71,12 @@ function AddProject(){
                         <label htmlFor="technologies" className="text-white">Tecnologías</label>
                         <input type="text" className="w-400 h-10" value={technologies} onChange={(e)=>setTechnologies(e.target.value)}/>
                         {errors.technologies && <p className="text-white italic text-sm">{errors.technologies}</p>}
+                    </div>
+
+                    <div className="mb-6 flex flex-col">
+                        <label htmlFor="url" className="text-white">Url</label>
+                        <input type="text" className="w-400 h-10" value={url} onChange={(e)=>setUrl(e.target.value)}/>
+                        {errors.url && <p className="text-white italic text-sm">{errors.url}</p>}
                     </div>
 
                     <div className="mb-6 flex flex-col">
